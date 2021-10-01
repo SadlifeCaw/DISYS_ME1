@@ -1,5 +1,5 @@
 //This implementation is done with help from the golang guide: https://golang.org/doc/tutorial/web-service-gin
-package DISYS_ME1
+package main
 
 import (
 	"net/http"
