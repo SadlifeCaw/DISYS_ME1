@@ -6,7 +6,7 @@ struct Course {
 interface ICourse {
 
     void getCourseByID(in string ID, out Course c);
-    void getCourses(out string out);
+    void getCourses(out stream out);
 
     void postCourse(in Course c);
 }

@@ -1,0 +1,31 @@
+syntax = "proto3";
+package DISYS_ME1;
+
+//import "google/protobuf/timestamp.proto";
+option go_package = "./DISYS_ME1";
+
+
+service CourseManager {
+    rpc getCourses(getCoursesRequest) returns (ReturnCourses) {};
+    rpc getCourseByID(getCourseByIDRequest) returns (ReturnCourse) {};
+}
+
+message Empty {
+    
+}
+
+message getCoursesRequest {
+     
+}
+
+message getCourseByIDRequest {
+
+}
+
+message ReturnCourses {
+    string courses = 1;
+}
+
+message ReturnCourse {
+    string course = 1;
+}
