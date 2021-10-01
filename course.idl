@@ -1,0 +1,12 @@
+struct Course {
+        ID      string `json:"id"`
+        Title   string `json:"title"`
+        Teacher string `json:"teacher"`
+};
+interface ICourse {
+
+    void getCourseByID(in string ID, out Course c);
+    void getCourses(out string out);
+
+    void postCourse(in Course c);
+}
