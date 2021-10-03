@@ -1,0 +1,243 @@
+swagger: "2.0"
+info:
+  title: Sample API
+  description: API description in Markdown.
+  version: 1.0.0
+host: api.example.com
+basePath: /v1
+schemes:
+  - https
+  - http
+  
+tags:
+  - name: "student"
+  - name: "course"
+  - name: "teacher"
+  
+paths:
+  /student:
+    post:
+      tags:
+      - "student"
+      summary: "Create new student"
+      consumes:
+      - "application/json"
+      parameters: 
+      - in: "body"
+        name: "studentid"
+        required: true
+        schema:
+          $ref: "#/definitions/Student"
+      responses:
+        "200":
+          description: "New student"
+
+  /student/id/{studentid}:
+    get:
+      tags:
+      - "student"
+      summary: "Get student by id"
+      consumes:
+      - "application/json"
+      parameters:
+      - in: "path"
+        name: "studentid"
+        required: true
+        type: "integer"
+      responses:
+        "200":
+          description: "Get student by id"
+          
+    put:
+      tags:
+      - "student"
+      summary: "Update student by id"
+      consumes:
+      - "application/json"
+      parameters:
+      - in: "path"
+        name: "studentid"
+        required: true
+        type: "integer"
+      responses:
+        "400":
+          description: "Invalid course name"
+        "404":
+          description: "Course not found"
+        
+      
+    delete:
+      tags:
+      - "student"
+      summary: "Delete student"
+      parameters: 
+      - name: "studentid"
+        in: "path"
+        type: integer
+        required: true
+      responses:
+        "400":
+          description: "Invalid student id"
+        "404":
+          description: "Id not found"
+        
+                
+  /course:
+    post:
+      tags:
+      - "course"
+      summary: "Create new course"
+      consumes:
+      - "application/json"
+      parameters: 
+      - in: "body"
+        name: "coursename"
+        required: true
+        schema:
+          $ref: "#/definitions/Course"
+      responses:
+        "200":
+          description: "New course" 
+  
+  
+  /course/{coursename}:
+    get:
+      tags:
+      - "course"
+      summary: "Get course by name"
+      consumes:
+      - "application/json"
+      parameters:
+      - in: "path"
+        name: "coursename"
+        required: true
+        type: "string"
+      responses:
+        "200":
+          description: "Get course by name"
+  
+    put:
+      tags:
+      - "course"
+      summary: "Update course by name"
+      consumes:
+      - "application/json"
+      parameters:
+      - in: "path"
+        name: "coursename"
+        required: true
+        type: "string"
+      responses:
+        "400":
+          description: "Invalid course name"
+        "404":
+          description: "Course not found"
+          
+    delete:
+      tags:
+      - "course"
+      summary: "Delete course"
+      parameters: 
+      - name: "coursename"
+        in: "path"
+        type: "string"
+        required: true
+      responses:
+        "400":
+          description: "Invalid course name"
+        "404":
+          description: "Course not found"
+        
+  /teacher:
+    post:
+      tags:
+      - "teacher"
+      summary: "Create new teacher"
+      consumes:
+      - "application/json"
+      parameters: 
+      - in: "body"
+        name: "teachername"
+        required: true
+        schema:
+          $ref: "#/definitions/Teacher"
+      responses:
+        "200":
+          description: "New teacher" 
+  
+  
+  /teacher/{teachername}:
+    get:
+      tags:
+      - "teacher"
+      summary: "Get teacher by name"
+      consumes:
+      - "application/json"
+      parameters:
+      - in: "path"
+        name: "teachername"
+        required: true
+        type: "string"
+      responses:
+        "200":
+          description: "Get teacher by name"
+  
+    put:
+      tags:
+      - "teacher"
+      summary: "Update teacher by name"
+      consumes:
+      - "application/json"
+      parameters:
+      - in: "path"
+        name: "teachername"
+        required: true
+        type: "string"
+      responses:
+        "400":
+          description: "Invalid teacher name"
+        "404":
+          description: "Teacher not found"
+          
+    delete:
+      tags:
+      - "teacher"
+      summary: "Delete teacher"
+      parameters: 
+      - name: "teachername"
+        in: "path"
+        type: "string"
+        required: true
+      responses:
+        "400":
+          description: "Invalid teacher name"
+        "404":
+          description: "Teacher not found"
+        
+
+     
+definitions:
+  Student:
+    type: "object"
+    properties: 
+      studentid:
+        type: "integer"
+        format: "int64"
+    xml:
+      name: "Student"
+      
+  Course:
+    type: "object"
+    properties:
+      coursename:
+        type: "string"
+    xml:
+      name: "Course"
+      
+  Teacher:
+    type: "object"
+    properties:
+      coursename:
+        type: "string"
+    xml:
+      name: "Course"
