@@ -4,7 +4,7 @@
 // 	protoc        v3.17.3
 // source: course.proto
 
-package main
+package DISYS_ME1
 
 import (
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
