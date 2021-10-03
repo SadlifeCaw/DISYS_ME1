@@ -20,6 +20,7 @@ const _ = grpc.SupportPackageIsVersion7
 type CourseManagerClient interface {
 	GetCourses(ctx context.Context, in *GetCoursesRequest, opts ...grpc.CallOption) (*ReturnCourses, error)
 	GetCourseByID(ctx context.Context, in *GetCourseByIDRequest, opts ...grpc.CallOption) (*ReturnCourse, error)
+	PostCourse(ctx context.Context, in *PostCourseRequest, opts ...grpc.CallOption) (*PostCourseReply, error)
 }
 
 type courseManagerClient struct {
@@ -48,12 +49,22 @@ func (c *courseManagerClient) GetCourseByID(ctx context.Context, in *GetCourseBy
 	return out, nil
 }
 
+func (c *courseManagerClient) PostCourse(ctx context.Context, in *PostCourseRequest, opts ...grpc.CallOption) (*PostCourseReply, error) {
+	out := new(PostCourseReply)
+	err := c.cc.Invoke(ctx, "/DISYS_ME1.CourseManager/postCourse", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // CourseManagerServer is the server API for CourseManager service.
 // All implementations must embed UnimplementedCourseManagerServer
 // for forward compatibility
 type CourseManagerServer interface {
 	GetCourses(context.Context, *GetCoursesRequest) (*ReturnCourses, error)
 	GetCourseByID(context.Context, *GetCourseByIDRequest) (*ReturnCourse, error)
+	PostCourse(context.Context, *PostCourseRequest) (*PostCourseReply, error)
 	mustEmbedUnimplementedCourseManagerServer()
 }
 
@@ -66,6 +77,9 @@ func (UnimplementedCourseManagerServer) GetCourses(context.Context, *GetCoursesR
 }
 func (UnimplementedCourseManagerServer) GetCourseByID(context.Context, *GetCourseByIDRequest) (*ReturnCourse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetCourseByID not implemented")
+}
+func (UnimplementedCourseManagerServer) PostCourse(context.Context, *PostCourseRequest) (*PostCourseReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method PostCourse not implemented")
 }
 func (UnimplementedCourseManagerServer) mustEmbedUnimplementedCourseManagerServer() {}
 
@@ -116,6 +130,24 @@ func _CourseManager_GetCourseByID_Handler(srv interface{}, ctx context.Context, 
 	return interceptor(ctx, in, info, handler)
 }
 
+func _CourseManager_PostCourse_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(PostCourseRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CourseManagerServer).PostCourse(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/DISYS_ME1.CourseManager/postCourse",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CourseManagerServer).PostCourse(ctx, req.(*PostCourseRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // CourseManager_ServiceDesc is the grpc.ServiceDesc for CourseManager service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -130,6 +162,10 @@ var CourseManager_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "getCourseByID",
 			Handler:    _CourseManager_GetCourseByID_Handler,
+		},
+		{
+			MethodName: "postCourse",
+			Handler:    _CourseManager_PostCourse_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
