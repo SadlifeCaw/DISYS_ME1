@@ -15,11 +15,11 @@ message Empty {
 }
 
 message getCoursesRequest {
-     
+     string request = 1;
 }
 
 message getCourseByIDRequest {
-
+    string request = 1;
 }
 
 message ReturnCourses {
